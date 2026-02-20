@@ -4,11 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon server/app.js",
-    "start": "node server/app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "Martin Sit",
+  "author": "Manny",
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^2.0.4"

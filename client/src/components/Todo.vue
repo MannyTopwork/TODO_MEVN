@@ -1,9 +1,13 @@
 <template>
   <section class="main">
-    <p class="lead">Total Number of todos: {{ todoList.length }}</p>
+    <p class="lead mb-4">
+      Tasks: {{ todoList.length }}
+      <span class="text-secondary">(Active: {{ activeCount }}, Completed: {{ completedCount }})</span>
+    </p>
     <div class="input-group mb-3 input-group-lg">
       <input
         class="form-control new-todo"
+        style="width: auto;"
         autofocus
         autocomplete="off"
         placeholder="What needs to be done?"
@@ -12,13 +16,19 @@
         @keyup.enter="addTask(newTask)"
       />
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="addTask(newTask)">Add Task</button>
+        <button
+          class="btn btn-primary"
+          type="button"
+          style="padding: 10px 8px;"
+          :disabled="!newTask.trim()"
+          @click="addTask(newTask)"
+        >Add Task</button>
       </div>
     </div>
 
     <div class="todo-list" v-if="todoList.length > 0" v-cloak>
       <ul class="list-group">
-        <li class="list-group-item" v-for="todo in filteredList" :key="todo._id">
+        <li class="list-group-item" :class="{ editing: todo.editing }" v-for="todo in filteredList" :key="todo._id">
           <div v-if="todo.editing">
             <input
               type="text"
@@ -32,22 +42,24 @@
               v-focus
             />
           </div>
-          <div v-else>
-            <input
-              type="checkbox"
-              class="checkbox"
-              @click="editTask(todo._id, todo.todo, !todo.completed, todo.editing)"
-              :checked="todo.completed"
-            />
+          <div class="list-group-row"  v-else>
+            <div class="d-flex align-items-center">
+              <input
+                type="checkbox"
+                class="checkbox"
+                @click="editTask(todo._id, todo.todo, !todo.completed, todo.editing)"
+                :checked="todo.completed"
+              />
+              <label
+                class="todo-item"
+                @click="editTask(todo._id, todo.todo, todo.completed, true)"
+                :class="{ 'completed': todo.completed }"
+              >
+                <p class="lead">{{ todo.todo }}</p>
+                <span style="font-size: .875rem; color: #666;">Creation Date: {{ formatDate(todo.created) }}</span>
+              </label>
+            </div>
 
-            <label
-              class="todo-item"
-              @dblclick="editTask(todo._id, todo.todo, todo.completed, true)"
-              :class="{ 'completed': todo.completed }"
-            >
-              {{ todo.todo }}
-              <p class="extra-info lead">Creation Date: {{ formatDate(todo.created) }}</p>
-            </label>
 
             <button
               type="button"
@@ -61,10 +73,19 @@
         </li>
       </ul>
 
-      <button @click="visibility='all'" class="btn btn-outline-primary filter">Show All</button>
-      <button @click="visibility='active'" class="btn btn-outline-primary filter">Show Active</button>
-      <button @click="visibility='completed'" class="btn btn-outline-primary filter">Show Completed</button>
-      <p class="lead footer-text">double-click a todo item to edit | created by martin sit</p>
+      <button
+        @click="visibility='all'"
+        :class="['btn btn-outline-primary filter', { active: visibility === 'all' }]"
+      >Show All</button>
+      <button
+        @click="visibility='active'"
+        :class="['btn btn-outline-primary filter', { active: visibility === 'active' }]"
+      >Show Active</button>
+      <button
+        @click="visibility='completed'"
+        :class="['btn btn-outline-primary filter', { active: visibility === 'completed' }]"
+      >Show Completed</button>
+      <p class="lead footer-text">click a todo item to edit | created by marcin pawlik</p>
     </div>
 
     <p v-else class="lead">Looks like you don't have any todos yet! :(</p>
@@ -103,6 +124,12 @@ export default {
   computed: {
     filteredList: function() {
       return filters[this.visibility](this.todoList);
+    },
+    activeCount: function() {
+      return this.todoList.filter(t => !t.completed).length;
+    },
+    completedCount: function() {
+      return this.todoList.filter(t => t.completed).length;
     }
   },
   methods: {
