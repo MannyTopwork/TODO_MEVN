@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="mt-5">
     <section class="todoapp">
-      <PageTitle title="todos app" />
+      <PageTitle title="To-Do List with Real-Time Updates" />
       <Todo />
     </section>
   </div>

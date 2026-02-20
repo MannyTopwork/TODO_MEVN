@@ -1,30 +1,6 @@
 # todos app | fullstack mevn
+Basic fullstack todolist app built using the MEVN stack.                         |
 
-Basic fullstack todolist app built using the MEVN stack.
-
-## Next Steps
-
--   [ ] Todo categories
--   [x] Task date of creation
--   [x] Click away to exit edit mode
--   [ ] Dark mode
--   [ ] Better design/theme
-
-## Built With
-
-| Name                | Description                                                                                       |
-| ------------------- | ------------------------------------------------------------------------------------------------- |
-| Bootstrap 4         | The most popular front-end framework for developing responsive, mobile first projects on the web. |
-| Vue.JS              | Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web. |
-| vue-toastr          | vue-toastr is Toast plugin for Vue.js.                                                            |
-| ExpressJS           | Fast, unopinionated, minimalist web framework for node.                                           |
-| body-parser         | Node.js body parsing middleware                                                                   |
-| cors                | Node.js CORS middleware                                                                           |
-| Mongoose            | MongoDB object modeling designed to work in an asynchronous environment.                          |
-| MongoDB             | MongoDB is a cross-platform document-oriented database program.                                   |
-| @vue/cli-plugin-pwa | pwa plugin for vue-cli                                                                            |
-
-## Quickstart
 
 ### Prerequisites
 
@@ -33,28 +9,6 @@ Basic fullstack todolist app built using the MEVN stack.
 -   Modify the MongoDB connection string in server/config/keys.js to your own
 
 -   Have NodeJS installed
-
-### Installation
-
-```bash
-# Install backend dependencies
-yarn
-
-# Start backend Express DevServer
-yarn dev
-
-# Install frontend dependencies
-cd client && npm install
-
-# Start frontend Vue DevServer
-cd client
-yarn serve
-
-# Build frontend for production
-cd client
-yarn build
-
-```
 
 ## API Routes
 
